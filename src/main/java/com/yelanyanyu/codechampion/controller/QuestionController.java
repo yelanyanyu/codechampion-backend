@@ -16,6 +16,7 @@ import com.yelanyanyu.codechampion.model.dto.question.QuestionQueryRequest;
 import com.yelanyanyu.codechampion.model.dto.question.QuestionUpdateRequest;
 import com.yelanyanyu.codechampion.model.entity.Question;
 import com.yelanyanyu.codechampion.model.entity.User;
+import com.yelanyanyu.codechampion.model.vo.QuestionVO;
 import com.yelanyanyu.codechampion.service.QuestionService;
 import com.yelanyanyu.codechampion.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -206,22 +207,22 @@ public class QuestionController {
 
     // endregion
 
-    /**
-     * 分页搜索（从 ES 查询，封装类）
-     *
-     * @param questionQueryRequest
-     * @param request
-     * @return
-     */
-    @PostMapping("/search/page/vo")
-    public BaseResponse<Page<QuestionVO>> searchQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-            HttpServletRequest request) {
-        long size = questionQueryRequest.getPageSize();
-        // 限制爬虫
-        ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
-        Page<Question> questionPage = questionService.searchFromEs(questionQueryRequest);
-        return ResultUtils.success(questionService.getQuestionVOPage(questionPage, request));
-    }
+//    /**
+//     * 分页搜索（从 ES 查询，封装类）
+//     *
+//     * @param questionQueryRequest
+//     * @param request
+//     * @return
+//     */
+//    @PostMapping("/search/page/vo")
+//    public BaseResponse<Page<QuestionVO>> searchQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
+//            HttpServletRequest request) {
+//        long size = questionQueryRequest.getPageSize();
+//        // 限制爬虫
+//        ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
+//        Page<Question> questionPage = questionService.searchFromEs(questionQueryRequest);
+//        return ResultUtils.success(questionService.getQuestionVOPage(questionPage, request));
+//    }
 
     /**
      * 编辑（用户）
