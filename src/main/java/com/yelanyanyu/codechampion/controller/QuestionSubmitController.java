@@ -8,6 +8,7 @@ import com.yelanyanyu.codechampion.model.dto.questionsubmit.QuestionSubmitAddReq
 import com.yelanyanyu.codechampion.model.entity.User;
 import com.yelanyanyu.codechampion.service.QuestionSubmitService;
 import com.yelanyanyu.codechampion.service.UserService;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,18 +40,18 @@ public class QuestionSubmitController {
      *
      * @param questionSubmitAddRequest
      * @param request
-     * @return resultNum 本次点赞变化数
+     * @return resultNum
      */
     @PostMapping("/")
-    public BaseResponse<Integer> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
-            HttpServletRequest request) {
+    public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
+                                             HttpServletRequest request) {
         if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         // 登录才能点赞
         final User loginUser = userService.getLoginUser(request);
 //        long questionId = questionSubmitAddRequest.getQuestionId();
-        int result = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        long result = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         return ResultUtils.success(result);
     }
 

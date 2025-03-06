@@ -10,6 +10,8 @@ import com.yelanyanyu.codechampion.model.entity.Question;
 import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import com.yelanyanyu.codechampion.model.entity.User;
+import com.yelanyanyu.codechampion.model.enums.QuestionSubmitLanguageEnum;
+import com.yelanyanyu.codechampion.model.enums.QuestionSubmitStatusEnum;
 import com.yelanyanyu.codechampion.service.QuestionService;
 import com.yelanyanyu.codechampion.service.QuestionSubmitService;
 import com.yelanyanyu.codechampion.service.QuestionSubmitService;
@@ -35,18 +37,24 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
         // 判断实体是否存在，根据类别获取实体
         Question question = questionService.getById(questionSubmitAddRequest.getQuestionId());
+        String language = questionSubmitAddRequest.getLanguage();
+        QuestionSubmitLanguageEnum languageEnum = QuestionSubmitLanguageEnum.getEnumByValue(language);
+        if (languageEnum == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "编程语言错误");
+        }
         if (question == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         long userId = loginUser.getId();
         // todo 这里可以添加限流策略，限定用户在规定时间内只能提交一条
         QuestionSubmit questionSubmit = new QuestionSubmit();
-        questionSubmit.setLanguage(questionSubmitAddRequest.getLanguage());
+        questionSubmit.setLanguage(language);
         questionSubmit.setCode(questionSubmitAddRequest.getCode());
+        questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
         questionSubmit.setQuestionId(question.getId());
         questionSubmit.setUserId(userId);
         // 创建一个初始判题信息
-        questionSubmit.setJudgeInfo(String.valueOf("{}"));
+        questionSubmit.setJudgeInfo("{}");
         boolean save = this.save(questionSubmit);
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR);
