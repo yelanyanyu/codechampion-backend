@@ -4,7 +4,7 @@ import com.yelanyanyu.codechampion.common.BaseResponse;
 import com.yelanyanyu.codechampion.common.ErrorCode;
 import com.yelanyanyu.codechampion.common.ResultUtils;
 import com.yelanyanyu.codechampion.exception.BusinessException;
-import com.yelanyanyu.codechampion.model.dto.questionthumb.QuestionSubmitAddRequest;
+import com.yelanyanyu.codechampion.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.yelanyanyu.codechampion.model.entity.User;
 import com.yelanyanyu.codechampion.service.QuestionSubmitService;
 import com.yelanyanyu.codechampion.service.UserService;
@@ -29,28 +29,28 @@ import javax.servlet.http.HttpServletRequest;
 public class QuestionSubmitController {
 
     @Resource
-    private QuestionSubmitService questionThumbService;
+    private QuestionSubmitService questionSubmitService;
 
     @Resource
     private UserService userService;
 
     /**
-     * 点赞 / 取消点赞
+     * 提交题目
      *
-     * @param questionThumbAddRequest
+     * @param questionSubmitAddRequest
      * @param request
      * @return resultNum 本次点赞变化数
      */
     @PostMapping("/")
-    public BaseResponse<Integer> doThumb(@RequestBody QuestionSubmitAddRequest questionThumbAddRequest,
+    public BaseResponse<Integer> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
             HttpServletRequest request) {
-        if (questionThumbAddRequest == null || questionThumbAddRequest.getQuestionId() <= 0) {
+        if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         // 登录才能点赞
         final User loginUser = userService.getLoginUser(request);
-        long questionId = questionThumbAddRequest.getQuestionId();
-        int result = questionThumbService.doQuestionSubmit(questionId, loginUser);
+//        long questionId = questionSubmitAddRequest.getQuestionId();
+        int result = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         return ResultUtils.success(result);
     }
 
