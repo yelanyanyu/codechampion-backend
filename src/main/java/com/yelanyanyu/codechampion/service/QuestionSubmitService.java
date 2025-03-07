@@ -1,9 +1,18 @@
 package com.yelanyanyu.codechampion.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yelanyanyu.codechampion.model.dto.question.QuestionQueryRequest;
 import com.yelanyanyu.codechampion.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.yelanyanyu.codechampion.model.dto.questionsubmit.QuestionSubmitQueryRequest;
+import com.yelanyanyu.codechampion.model.entity.Question;
 import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yelanyanyu.codechampion.model.entity.User;
+import com.yelanyanyu.codechampion.model.vo.QuestionSubmitVO;
+import com.yelanyanyu.codechampion.model.vo.QuestionVO;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author lenovo
@@ -27,4 +36,9 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
      */
     int doQuestionSubmitInner(long userId, long postId);
 
+    QueryWrapper<QuestionSubmit> getQueryWrapper(QuestionSubmitQueryRequest questionQueryRequest);
+
+    QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit question, User loginUser);
+
+    Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, User loginUser);
 }
