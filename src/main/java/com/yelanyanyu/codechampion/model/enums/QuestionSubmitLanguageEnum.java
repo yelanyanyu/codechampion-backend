@@ -28,12 +28,12 @@ public enum QuestionSubmitLanguageEnum {
     /**
      * C++ programming language
      */
-    CPP("C++", "C++"),
+    CPP("cpp", "cpp"),
 
     /**
      * Go programming language
      */
-    GOLANG("golang", "golang");
+    GOLANG("go", "go");
 
     /**
      * The human-readable text description of the programming language
