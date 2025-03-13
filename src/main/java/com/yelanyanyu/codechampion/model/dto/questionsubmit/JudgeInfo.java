@@ -3,7 +3,7 @@ package com.yelanyanyu.codechampion.model.dto.questionsubmit;
 import lombok.Data;
 
 /**
- * Information about the judging process for a user's submitted question, including
+ * Information about the judging process for a user's submitted question from sandbox, including
  * details such as execution failure reasons, execution time, memory consumption, etc.
  * <p>
  * Example JSON format:

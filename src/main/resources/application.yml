@@ -102,3 +102,5 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.yelanyanyu.codechampion.controller
+codesandbox:
+  type: example
