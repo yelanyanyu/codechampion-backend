@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.yelanyanyu.codechampion.model.dto.questionsubmit.JudgeInfo;
+import com.yelanyanyu.codechampion.judge.codesandbox.model.JudgeInfo;
 import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

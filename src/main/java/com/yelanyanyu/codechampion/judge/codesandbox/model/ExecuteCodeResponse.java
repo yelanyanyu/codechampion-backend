@@ -1,7 +1,6 @@
 package com.yelanyanyu.codechampion.judge.codesandbox.model;
 
 
-import com.yelanyanyu.codechampion.model.dto.questionsubmit.JudgeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

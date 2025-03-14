@@ -1,4 +1,4 @@
-package com.yelanyanyu.codechampion.model.dto.questionsubmit;
+package com.yelanyanyu.codechampion.judge.codesandbox.model;
 
 import lombok.Data;
 

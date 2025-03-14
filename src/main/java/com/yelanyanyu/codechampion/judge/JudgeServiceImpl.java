@@ -11,14 +11,13 @@ import com.yelanyanyu.codechampion.judge.codesandbox.CodeSandboxProxy;
 import com.yelanyanyu.codechampion.judge.codesandbox.model.ExecuteCodeRequest;
 import com.yelanyanyu.codechampion.judge.codesandbox.model.ExecuteCodeResponse;
 import com.yelanyanyu.codechampion.model.dto.question.JudgeCase;
-import com.yelanyanyu.codechampion.model.dto.questionsubmit.JudgeInfo;
+import com.yelanyanyu.codechampion.judge.codesandbox.model.JudgeInfo;
 import com.yelanyanyu.codechampion.model.entity.Question;
 import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import com.yelanyanyu.codechampion.model.enums.QuestionSubmitStatusEnum;
 import com.yelanyanyu.codechampion.service.QuestionService;
 import com.yelanyanyu.codechampion.service.QuestionSubmitService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

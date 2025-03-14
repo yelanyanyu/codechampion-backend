@@ -2,7 +2,7 @@ package com.yelanyanyu.codechampion.judge;
 
 
 import com.yelanyanyu.codechampion.model.dto.question.JudgeCase;
-import com.yelanyanyu.codechampion.model.dto.questionsubmit.JudgeInfo;
+import com.yelanyanyu.codechampion.judge.codesandbox.model.JudgeInfo;
 import com.yelanyanyu.codechampion.model.entity.Question;
 import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import lombok.Data;

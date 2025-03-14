@@ -1,7 +1,7 @@
 package com.yelanyanyu.codechampion.judge;
 
 
-import com.yelanyanyu.codechampion.model.dto.questionsubmit.JudgeInfo;
+import com.yelanyanyu.codechampion.judge.codesandbox.model.JudgeInfo;
 
 /**
  * 判题策略接口，用于实现不同语言的不同判题策略，使用了策略模式的设计模式

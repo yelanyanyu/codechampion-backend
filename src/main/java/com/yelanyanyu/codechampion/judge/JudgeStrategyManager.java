@@ -1,7 +1,7 @@
 package com.yelanyanyu.codechampion.judge;
 
 
-import com.yelanyanyu.codechampion.model.dto.questionsubmit.JudgeInfo;
+import com.yelanyanyu.codechampion.judge.codesandbox.model.JudgeInfo;
 import com.yelanyanyu.codechampion.model.enums.QuestionSubmitLanguageEnum;
 import org.springframework.stereotype.Component;
 

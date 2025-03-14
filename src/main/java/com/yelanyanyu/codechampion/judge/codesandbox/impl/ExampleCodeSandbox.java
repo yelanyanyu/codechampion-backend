@@ -4,7 +4,7 @@ package com.yelanyanyu.codechampion.judge.codesandbox.impl;
 import com.yelanyanyu.codechampion.judge.codesandbox.CodeSandbox;
 import com.yelanyanyu.codechampion.judge.codesandbox.model.ExecuteCodeRequest;
 import com.yelanyanyu.codechampion.judge.codesandbox.model.ExecuteCodeResponse;
-import com.yelanyanyu.codechampion.model.dto.questionsubmit.JudgeInfo;
+import com.yelanyanyu.codechampion.judge.codesandbox.model.JudgeInfo;
 import com.yelanyanyu.codechampion.model.enums.QuestionSubmitStatusEnum;
 
 import java.util.Arrays;
