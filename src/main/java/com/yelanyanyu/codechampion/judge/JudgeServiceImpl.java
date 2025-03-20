@@ -82,7 +82,7 @@ public class JudgeServiceImpl implements JudgeService {
         ExecuteCodeResponse executeCodeResponse = sentToSandbox(code, language, input);
         // 5
         JudgeContext judgeContext = new JudgeContext();
-        List<String> output = executeCodeResponse.getOutput();
+        List<String> output = executeCodeResponse.getOutputList();
         String message = executeCodeResponse.getMessage();
         JudgeInfo judgeInfo = executeCodeResponse.getJudgeInfo();
 
@@ -112,7 +112,7 @@ public class JudgeServiceImpl implements JudgeService {
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
-                .input(input)
+                .inputList(input)
                 .build();
         return new CodeSandboxProxy(codeSandbox).execute(executeCodeRequest);
     }
