@@ -12,10 +12,15 @@ import com.yelanyanyu.codechampion.constant.UserConstant;
 import com.yelanyanyu.codechampion.exception.BusinessException;
 import com.yelanyanyu.codechampion.exception.ThrowUtils;
 import com.yelanyanyu.codechampion.model.dto.question.*;
+import com.yelanyanyu.codechampion.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.yelanyanyu.codechampion.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.yelanyanyu.codechampion.model.entity.Question;
+import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import com.yelanyanyu.codechampion.model.entity.User;
+import com.yelanyanyu.codechampion.model.vo.QuestionSubmitVO;
 import com.yelanyanyu.codechampion.model.vo.QuestionVO;
 import com.yelanyanyu.codechampion.service.QuestionService;
+import com.yelanyanyu.codechampion.service.QuestionSubmitService;
 import com.yelanyanyu.codechampion.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -42,9 +47,61 @@ public class QuestionController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private QuestionSubmitService questionSubmitService;
 
     // region 增删改查
 
+    /**
+     * Processes a code submission for a question and initiates the judging process.
+     * <p>
+     * This endpoint accepts a submission for a specific question from an authenticated user,
+     * validates the input parameters, and passes the submission to the judging system.
+     * The response contains the ID of the created submission record.
+     *
+     * @param questionSubmitAddRequest The request body containing submission details including
+     *                                 question ID, programming language, and code content
+     * @param request                  The HTTP request object used to authenticate the current user
+     * @return BaseResponse containing the submission ID if successful
+     * @throws BusinessException if the request parameters are invalid or the user is not authenticated
+     */
+    @PostMapping("/question_submit/do")
+    public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
+                                               HttpServletRequest request) {
+        if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 登录才能点赞
+        final User loginUser = userService.getLoginUser(request);
+//        long questionId = questionSubmitAddRequest.getQuestionId();
+        long result = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        return ResultUtils.success(result);
+    }
+
+    /**
+     * Retrieves a paginated list of question submissions.
+     * <p>
+     * This endpoint provides access to submission records based on query parameters
+     * and user permissions. The results are filtered according to the user's role:
+     * - Admin users can see all submissions
+     * - Regular users can only see their own submissions or public information about others' submissions
+     *
+     * @param questionSubmitQueryRequest The request body containing filter criteria and pagination parameters
+     * @param request                    The HTTP request object used to authenticate the current user
+     * @return BaseResponse containing a page of QuestionSubmitVO objects with submission details
+     * @throws BusinessException if the user is not authenticated or lacks appropriate permissions
+     */
+    @PostMapping("/question_submit/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest,
+                                                                         HttpServletRequest request) {
+        long current = questionSubmitQueryRequest.getCurrent();
+        long size = questionSubmitQueryRequest.getPageSize();
+        User loginUser = userService.getLoginUser(request);
+        // 从数据库中查询原始的题目提交分页信息
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
+                questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
+    }
     /**
      * 创建
      *
@@ -208,7 +265,7 @@ public class QuestionController {
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-            HttpServletRequest request) {
+                                                               HttpServletRequest request) {
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         // 限制爬虫
@@ -227,7 +284,7 @@ public class QuestionController {
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listMyQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-            HttpServletRequest request) {
+                                                                 HttpServletRequest request) {
         if (questionQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

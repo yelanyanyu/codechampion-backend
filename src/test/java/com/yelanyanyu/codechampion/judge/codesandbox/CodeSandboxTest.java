@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Assert;
 import com.yelanyanyu.codechampion.judge.codesandbox.model.ExecuteCodeRequest;
 import com.yelanyanyu.codechampion.judge.codesandbox.model.ExecuteCodeResponse;
 import com.yelanyanyu.codechampion.model.enums.QuestionSubmitLanguageEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  */
 @SpringBootTest
+@Slf4j
 class CodeSandboxTest {
     @Value("${codesandbox.type}")
     private String type;
@@ -60,5 +62,6 @@ class CodeSandboxTest {
                 .build();
         ExecuteCodeResponse executeCodeResponse = codeSandbox.execute(executeCodeRequest);
         Assert.notNull(executeCodeResponse);
+        log.info(executeCodeResponse.toString());
     }
 }
