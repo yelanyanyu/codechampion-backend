@@ -25,6 +25,8 @@ public class JavaLanguageJudgeStrategyImpl implements JudgeStrategy {
     @Override
     public JudgeInfo doJudge(JudgeContext judgeContext) {
         JudgeInfo judgeInfo = judgeContext.getJudgeInfo();
+
+
         Long memory = Optional.ofNullable(judgeInfo.getMemory()).orElse(0L);
         Long time = Optional.ofNullable(judgeInfo.getTime()).orElse(0L);
         List<String> inputList = judgeContext.getInputList();
@@ -35,6 +37,13 @@ public class JavaLanguageJudgeStrategyImpl implements JudgeStrategy {
         JudgeInfo judgeInfoResponse = new JudgeInfo();
         judgeInfoResponse.setMemory(memory);
         judgeInfoResponse.setTime(time);
+
+        String message = judgeInfo.getMessage();
+        // 判断是否编译错误
+        if (message.equals(JudgeInfoMessageEnum.COMPILE_ERROR.getValue())) {
+            judgeInfoResponse.setMessage(JudgeInfoMessageEnum.COMPILE_ERROR.getValue());
+            return judgeInfoResponse;
+        }
         //先判断沙箱执行的结果输出数量是否和预期输出数量相等
         if (outputList.size() != inputList.size()) {
             log.error("outputList: {}, inputList: {}", outputList, inputList);
