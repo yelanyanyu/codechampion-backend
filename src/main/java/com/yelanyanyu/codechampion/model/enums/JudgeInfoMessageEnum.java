@@ -11,10 +11,6 @@ import java.util.stream.Collectors;
  * Enum representing the possible judge information messages for code submissions.
  * These messages provide detailed feedback about the outcome of code evaluation
  * in the Code Champion judging system.
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @version 1.0
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @Getter
 public enum JudgeInfoMessageEnum {

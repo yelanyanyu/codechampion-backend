@@ -10,10 +10,6 @@ import org.apache.commons.lang3.ObjectUtils;
  * Enum representing the roles that users can have in the system.
  * Each role defines different levels of permissions and access controls
  * for user operations within the Code Champion application.
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @version 1.0
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 public enum UserRoleEnum {
 

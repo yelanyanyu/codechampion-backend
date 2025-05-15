@@ -28,9 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * This controller provides endpoints for submitting solutions to coding problems
  * and retrieving paginated lists of submissions. Access to submission history
  * is controlled based on the user's role and relationship to the submission.
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
+
  */
 @RestController
 @RequestMapping("/question_submit")
