@@ -51,16 +51,7 @@ public class JavaLanguageJudgeStrategyImpl implements JudgeStrategy {
             judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
             return judgeInfoResponse;
         }
-        //判断每一项输出和预期输出是否相等
-        for (int i = 0; i < judgeCaseList.size(); i++) {
-            JudgeCase judgeCase = judgeCaseList.get(i);
-            if (!judgeCase.getOutput().trim().equals(outputList.get(i).trim())) {
-                log.error("judgeCase.output: {}, outputList.get(i): {}", judgeCase.getOutput(), outputList.get(i));
-                judgeInfoMessageEnum = JudgeInfoMessageEnum.WRONG_ANSWER;
-                judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
-                return judgeInfoResponse;
-            }
-        }
+
         //判断题目限制
 
         String judgeConfigStr = question.getJudgeConfig();
@@ -79,6 +70,19 @@ public class JavaLanguageJudgeStrategyImpl implements JudgeStrategy {
             judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
             return judgeInfoResponse;
         }
+
+        //判断每一项输出和预期输出是否相等
+        for (int i = 0; i < judgeCaseList.size(); i++) {
+            JudgeCase judgeCase = judgeCaseList.get(i);
+            String output = outputList.get(i);
+            if (StrUtil.isEmpty(output) || !judgeCase.getOutput().trim().equals(outputList.get(i).trim())) {
+                log.error("judgeCase.output: {}, outputList.get(i): {}", judgeCase.getOutput(), outputList.get(i));
+                judgeInfoMessageEnum = JudgeInfoMessageEnum.WRONG_ANSWER;
+                judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
+                return judgeInfoResponse;
+            }
+        }
+
         judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
         return judgeInfoResponse;
     }
