@@ -40,7 +40,7 @@ public class JavaLanguageJudgeStrategyImpl implements JudgeStrategy {
 
         String message = judgeInfo.getMessage();
         // 判断是否编译错误
-        if (message.equals(JudgeInfoMessageEnum.COMPILE_ERROR.getValue())) {
+        if (message != null && message.equals(JudgeInfoMessageEnum.COMPILE_ERROR.getValue())) {
             judgeInfoResponse.setMessage(JudgeInfoMessageEnum.COMPILE_ERROR.getValue());
             return judgeInfoResponse;
         }

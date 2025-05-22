@@ -17,6 +17,7 @@ import com.yelanyanyu.codechampion.model.entity.QuestionSubmit;
 import com.yelanyanyu.codechampion.model.enums.QuestionSubmitStatusEnum;
 import com.yelanyanyu.codechampion.service.QuestionService;
 import com.yelanyanyu.codechampion.service.QuestionSubmitService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
  * @author yelanyanyu@zjxu.edu.cn
  * @version 1.0
  */
+@Slf4j
 @Service
 public class JudgeServiceImpl implements JudgeService {
     @Resource
@@ -95,6 +97,7 @@ public class JudgeServiceImpl implements JudgeService {
 
         JudgeInfo newJudgeInfo = judgeStrategyManager.doJudge(judgeContext);
 
+        log.debug(newJudgeInfo.toString());
         newquestionSubmit = new QuestionSubmit();
         newquestionSubmit.setId(id);
         newquestionSubmit.setJudgeInfo(JSONUtil.toJsonStr(newJudgeInfo));
